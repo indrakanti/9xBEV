@@ -1,0 +1,64 @@
+# Synthetic rig. Replace intrinsics and mounting geometry before vehicle use.
+schema_version: 1
+renderer:
+  backend: opengl
+  output: ../output.ppm
+  width: 640
+  height: 480
+  cuda_device: 0
+  cuda_block_size: 128
+vehicle:
+  length_m: 4.6
+  width_m: 1.85
+  color: [0.12, 0.17, 0.24]
+bowl:
+  flat_radius_m: 4.0
+  outer_radius_m: 9.0
+  height_m: 3.0
+  rings: 40
+  sectors: 96
+view:
+  yaw_rad: 0.0
+  tilt_rad: 0.7853981633974483
+  extent_m: 11.0
+blend:
+  weight_power: 2.0
+  min_weight: 0.000001
+  background: [0.025, 0.035, 0.05]
+cameras:
+  - id: front
+    input: ../demo/front.ppm
+    resolution: [640, 480]
+    position_m: [2, 0, 0.8]
+    R_vehicle_camera: [0.0, -0.3420201433256687, 0.9396926207859084, -1.0, -0.0, 0.0, 0, -0.9396926207859084, -0.3420201433256687]
+    intrinsics: [150, 150, 319.5, 239.5]
+    distortion: [0, 0, 0, 0]
+    max_theta_rad: 1.6580627893946132
+    gain: 1.0
+  - id: left
+    input: ../demo/left.ppm
+    resolution: [640, 480]
+    position_m: [0, 0.9, 0.9]
+    R_vehicle_camera: [1.0, -2.094269368838496e-17, 5.753957801139251e-17, -6.123233995736766e-17, -0.3420201433256687, 0.9396926207859084, 0, -0.9396926207859084, -0.3420201433256687]
+    intrinsics: [150, 150, 319.5, 239.5]
+    distortion: [0, 0, 0, 0]
+    max_theta_rad: 1.6580627893946132
+    gain: 1.0
+  - id: rear
+    input: ../demo/rear.ppm
+    resolution: [640, 480]
+    position_m: [-2, 0, 0.8]
+    R_vehicle_camera: [1.2246467991473532e-16, 0.3420201433256687, -0.9396926207859084, 1.0, -4.188538737676992e-17, 1.1507915602278503e-16, 0, -0.9396926207859084, -0.3420201433256687]
+    intrinsics: [150, 150, 319.5, 239.5]
+    distortion: [0, 0, 0, 0]
+    max_theta_rad: 1.6580627893946132
+    gain: 1.0
+  - id: right
+    input: ../demo/right.ppm
+    resolution: [640, 480]
+    position_m: [0, -0.9, 0.9]
+    R_vehicle_camera: [-1.0, -2.094269368838496e-17, 5.753957801139251e-17, -6.123233995736766e-17, 0.3420201433256687, -0.9396926207859084, 0, -0.9396926207859084, -0.3420201433256687]
+    intrinsics: [150, 150, 319.5, 239.5]
+    distortion: [0, 0, 0, 0]
+    max_theta_rad: 1.6580627893946132
+    gain: 1.0

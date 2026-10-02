@@ -1,0 +1,23 @@
+name: native-renderer
+on: [push, pull_request]
+jobs:
+  linux-gles:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependencies
+        run: sudo apt-get update && sudo apt-get install -y libyaml-cpp-dev libegl1-mesa-dev libgles2-mesa-dev
+      - name: Configure
+        run: cmake -S . -B build -DBEV_OPENGL=ON -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build -j2
+      - name: Tests including software GLES parity
+        env:
+          EGL_PLATFORM: surfaceless
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: ctest --test-dir build --output-on-failure
+      - name: Smoke render
+        env:
+          EGL_PLATFORM: surfaceless
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: python3 tools/generate_demo.py && build/bev_render config/qualcomm_linux.yaml
